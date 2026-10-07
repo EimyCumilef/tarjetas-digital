@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cumpleaños de Allison</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F3E8FF; --card:#FFFFFF; --ink:#3B1F4A; --soft:#6E5280;
+  --pink:#FF3F9B; --gold:#FFB27A; --mint:#FFD6EA;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#241230;--card:#33194A;--ink:#FBEFFF;--soft:#D1B7E3}
+}
+:root[data-theme="dark"]{--bg:#241230;--card:#33194A;--ink:#FBEFFF;--soft:#D1B7E3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:32px;padding:40px 28px 32px;
+  text-align:center;position:relative;overflow:hidden;border:4px solid var(--ink)}
+.dot{position:absolute;border-radius:50%}
+.d1{width:90px;height:90px;background:var(--gold);top:-30px;left:-24px}
+.d2{width:60px;height:60px;background:var(--mint);top:30px;right:-18px}
+.d3{width:120px;height:120px;background:var(--pink);bottom:-48px;right:-36px}
+.d4{width:48px;height:48px;background:var(--mint);bottom:70px;left:-16px}
+.card>*:not(.dot){position:relative}
+.intro{margin:0;font-size:1.05rem;color:var(--soft)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(3.6rem,19vw,5.2rem);
+  line-height:1;margin:8px 0 6px;color:var(--pink);letter-spacing:-1px;
+  text-shadow:3px 3px 0 var(--gold)}
+.sub{font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.3rem;margin:0 0 28px}
+.info{margin:0 auto 28px;max-width:300px;text-align:left;display:grid;gap:14px}
+.row{display:flex;gap:12px;align-items:flex-start}
+.row b{display:block;font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.1rem}
+.row span{color:var(--soft);font-size:.98rem;line-height:1.4}
+.ico{font-size:1.5rem;line-height:1.2}
+.btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15rem;
+  padding:16px 30px;border-radius:999px;border:3px solid var(--ink);
+  box-shadow:0 5px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.foot{margin:22px 0 0;font-size:.95rem;color:var(--soft)}
+
+.card{opacity:0;transform:translateY(60px) scale(.92);transition:opacity .8s .25s,transform .8s .25s cubic-bezier(.2,1.2,.4,1)}
+body.open .card{opacity:1;transform:none}
+.sobre{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:var(--bg);cursor:pointer;transition:opacity .6s,visibility 0s .6s}
+body.open .sobre{opacity:0;visibility:hidden;pointer-events:none}
+.env{position:relative;width:min(290px,78vw);aspect-ratio:3/2;background:var(--pink);border:4px solid var(--ink);border-radius:12px;box-shadow:0 8px 0 var(--ink);animation:flota 2.4s ease-in-out infinite}
+.sobre.abierto .env{animation:none}
+.flap{position:absolute;left:0;right:0;top:0;height:62%;background:var(--gold);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:3;transition:transform .7s ease,z-index 0s .3s}
+.sobre.abierto .flap{transform:perspective(700px) rotateX(180deg);z-index:1}
+.front{position:absolute;inset:0;background:var(--mint);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:8px;z-index:2}
+.seal{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);font-size:2.2rem;z-index:4;transition:opacity .3s}
+.sobre.abierto .seal{opacity:0}
+.hint{margin:0;font-family:'Fredoka',sans-serif;font-weight:500;font-size:1.2rem;color:var(--ink);text-align:center;padding:0 20px}
+#confeti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.env{animation:none}.card,.flap,.sobre{transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<div class="sobre" id="sobre" role="button" tabindex="0" aria-label="Abrir invitación">
+  <div class="env"><div class="flap"></div><div class="front"></div><div class="seal">💖</div></div>
+  <p class="hint">Allison te invita 💌<br>Toca para abrir</p>
+</div>
+<canvas id="confeti"></canvas>
+<main class="card">
+  <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
+  <p class="intro">Estás invitado a los 12 años de</p>
+  <h1 id="nombre">Allison</h1>
+  <p class="sub" id="evento">¡Ven a disfrutar con nosotros! 💖</p>
+
+  <div class="info">
+    <div class="row"><div class="ico">📅</div><div><b>Fecha</b><span id="fecha">Sábado 24 de octubre</span></div></div>
+    <div class="row"><div class="ico">🕒</div><div><b>Hora</b><span id="hora">De 14:30 a 18:30 hrs</span></div></div>
+    <div class="row"><div class="ico">🏡</div><div><b>Lugar</b><span id="direccion"></span></div></div>
+  </div>
+
+  <a class="btn" id="mapa" href="#" target="_blank" rel="noopener">📍 Ver ubicación</a>
+  <p class="foot" id="nota">Te esperamos ✨</p>
+</main>
+
+<script>
+// ✏️ Cambia solo estos datos para cada nueva invitación
+var DATOS = {
+  nombre: "Allison",
+  evento: "¡Ven a disfrutar con nosotros! 💖",
+  fecha: "Sábado 24 de octubre",
+  hora: "De 14:30 a 18:30 hrs",
+  lugar: "Padel Platz",
+  direccion: "Avenida Cordillera 111, sector La Vara, Puerto Montt, Los Lagos, Chile",
+  placeId: "ChIJjXp_SQA7GJYROtmh_1a6j68",
+  nota: "Te esperamos ✨"
+};
+
+document.getElementById("nombre").textContent = DATOS.nombre;
+document.getElementById("evento").textContent = DATOS.evento;
+document.getElementById("fecha").textContent = DATOS.fecha;
+document.getElementById("hora").textContent = DATOS.hora;
+document.getElementById("direccion").textContent = DATOS.lugar + " — " + DATOS.direccion;
+document.getElementById("nota").textContent = DATOS.nota;
+document.getElementById("mapa").href =
+  "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(DATOS.lugar + " " + DATOS.direccion) +
+  "&query_place_id=" + DATOS.placeId;
+
+var sobre=document.getElementById("sobre");
+function abrir(){
+  if(sobre.classList.contains("abierto"))return;
+  sobre.classList.add("abierto");
+  var reducido=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(function(){document.body.classList.add("open");if(!reducido)confeti();},reducido?0:800);
+}
+sobre.addEventListener("click",abrir);
+sobre.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();abrir();}});
+function confeti(){
+  var c=document.getElementById("confeti"),x=c.getContext("2d");
+  c.width=innerWidth;c.height=innerHeight;
+  var col=["#FF3F9B","#FFB27A","#FFD6EA","#FFC93C","#8EE3C8"],ps=[];
+  for(var i=0;i<150;i++){var a=Math.random()*Math.PI-Math.PI,v=6+Math.random()*10;
+    ps.push({x:c.width/2,y:c.height*.55,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,w:6+Math.random()*6,h:4+Math.random()*5,
+    r:Math.random()*6,vr:(Math.random()-.5)*.4,c:col[i%col.length]});}
+  var t0=performance.now();
+  (function f(t){
+    var e=t-t0;x.clearRect(0,0,c.width,c.height);
+    ps.forEach(function(p){p.vy+=.28;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+      x.save();x.globalAlpha=Math.max(0,1-e/4200);x.translate(p.x,p.y);x.rotate(p.r);
+      x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore();});
+    if(e<4200)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height);
+  })(t0);
+}
+</script>
+</body>
+</html>
